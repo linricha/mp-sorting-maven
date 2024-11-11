@@ -120,4 +120,105 @@ public class TestSorter {
     ArrayUtils.permute(original);
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
+
+  /**
+   * Tests to see that negative integers are sorted properly
+   * amongst other negative integers.
+   */
+  @Test
+  public void sortNegativeInts() {
+
+    if (null == intSorter) {
+      return;
+    } // if
+
+    Integer[] original = new Integer[100];
+    Integer[] sorted = new Integer[100];
+
+    for (int i = 0; i < 100; i++) {
+      sorted[i] = i - 100;
+      original[i] = i;
+    } // for
+
+    assertSorts(sorted, original, intSorter);
+  } // sortNegativeInts
+
+  /**
+   * Checks to see that all Integers can be sorted.
+   */
+  @Test
+  public void sortAllInts() {
+    if (null == intSorter) {
+      return;
+    } // if
+
+    Integer[] original = new Integer[100];
+    Integer[] sorted = new Integer[100];
+
+    for (int i = 0; i < 200; i++) {
+      sorted[i] = i - 100;
+      original[i] = i;
+    } // for
+
+    assertSorts(sorted, original, intSorter);  
+  } // sortAllInts
+
+  /**
+   * Tests that arrays of size one are sorted.
+   */
+  @Test
+  public void sortSizeOne() {
+
+    if (null == intSorter) {
+      return;
+    } // if
+
+    for (int i = -100; i < 100; i++) {
+
+      Integer[] original = {i};
+      Integer[] copy = original.clone();
+      assertSorts(original, copy, intSorter);
+
+    } // for
+  } // sortSizeOne
+
+  /**
+   * Tests that arrays of the same element are sorted.
+   */
+  @Test
+  public void sortAllElementsEqual() {
+    if (null == intSorter) {
+      return;
+    } // if
+
+    Integer[] original = new Integer[50];
+
+    for (int i = 0; i < 50; i++) {
+      original[i] = 0;
+    } // for
+
+    Integer[] sorted = original.clone();
+
+    assertSorts(sorted, original, intSorter);
+  } // sortAllElementsEqual
+
+  /**
+   * Checks that null string sorted properly.
+   */
+  @Test
+  public void sortNullString() {
+
+    if (null == stringSorter) {
+      return;
+    } // if
+
+    String[] original = {"", "Hello", "Friend", "", "", "No"};
+
+    String[] sorted = {"", "", "", "No", "Hello", "Friend"};
+
+    assertSorts(sorted, original, stringSorter);
+  } // sortNullString
+
+
+
 } // class TestSorter
