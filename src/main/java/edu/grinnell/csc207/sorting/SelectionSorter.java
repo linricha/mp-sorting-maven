@@ -8,6 +8,7 @@ import java.util.Comparator;
  * @param <T>
  *   The types of values that are sorted.
  *
+ * @author Richard Lin
  * @author Samuel A. Rebelsky
  */
 
@@ -55,6 +56,30 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+
+    // Marks the area of sorted vs unsorted with j
+    for (int j = 0; j < values.length; j ++) {
+
+      T nextSmallestVal = values[j];
+      int nextSmallestIndex = j;
+
+      // Find the smallest value in T[]
+      for (int i = 0; i < values.length; i ++) {
+        if (this.order.compare(values[i], nextSmallestVal) < 0) {
+          nextSmallestVal = values[i];
+          nextSmallestIndex = i;
+        } // if
+      } // for
+
+      // stablitily
+      for (int k = nextSmallestIndex; k > j; k--) {
+        // every value between sorted area (exclusive)
+        // and smallest val (inclusvie) shift right one.
+        values[k] = values[k - 1];
+      } // for
+
+      // Put smallest Val in last position of Sorted area
+      values[j] = nextSmallestVal;
+    } // for
   } // sort(T[])
 } // class SelectionSorter
