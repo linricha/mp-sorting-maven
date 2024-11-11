@@ -55,6 +55,21 @@ public class InsertionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    
+    // Marks the area of sorted vs unsorted with j
+    for (int j = 0; j < values.length; j++) {
+      T nextVal = values[j];
+
+      // Moves next val to the appropriate location in the sorted area
+      for (int i = j - 1; i >= 0; i--) {
+        // if nextVal is smaller than values[i]
+        if (this.order.compare(nextVal, values[i]) < 0) {
+          // swap elements
+          values[i + 1] = values[i];
+          values[i] = nextVal;
+        } // if
+      } // for
+
+    } // for
   } // sort(T[])
 } // class InsertionSorter
