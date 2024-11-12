@@ -56,10 +56,11 @@ public class MergeSorter<T> implements Sorter<T> {
   @Override
   public void sort(T[] values) {
     T[] prevSorted = values.clone();
+    boolean checkedRemaining = false;
     
 
     // Sorts in groups of length i or less, eventually having the entire array sorted.
-    for (int i = 1; i < values.length; i *= 2) {
+    for (int i = 1; i < values.length || checkedRemaining; i *= 2) {
       int totalGroups = (values.length - values.length % i) / i;
 
       int groupWidth = i;
@@ -70,7 +71,7 @@ public class MergeSorter<T> implements Sorter<T> {
         int groupIndex1 = groupNum * groupWidth;
         int groupIndex2 = groupIndex1 + groupWidth;
         compare(prevSorted, values, groupIndex1, groupWidth, groupIndex2, groupWidth);
-      }
+      } // for
 
       // When have enough for two groups of not complete size.
       // Makes sure that any sized array unsorted returns sorted with same size and elements.
@@ -78,7 +79,16 @@ public class MergeSorter<T> implements Sorter<T> {
         int lastGroupIndex = (totalGroups - 1) * groupWidth;
         int remainingGroupIndex = totalGroups * groupWidth;
         compare(prevSorted, values, lastGroupIndex, groupWidth, remainingGroupIndex, remainingGroupWidth);
+        checkedRemaining = true;
       } // if
+      
+      // Ensure that we sorted and compared the entire array, since
+      // values.length can be a non even number.
+      if (!(i < values.length) && i < 2 * values.length) {
+        checkedRemaining = true;
+      } else {
+        checkedRemaining = false;
+      } // if/else
 
       prevSorted = values.clone(); // ? Questionable. But need to update values.
     } // for
