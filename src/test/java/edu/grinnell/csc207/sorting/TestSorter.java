@@ -155,12 +155,12 @@ public class TestSorter {
     Integer[] original = new Integer[100];
     Integer[] sorted = new Integer[100];
 
-    for (int i = 0; i < 200; i++) {
-      sorted[i] = i - 100;
+    for (int i = 0; i < 100; i++) {
+      sorted[i] = i - 50;
       original[i] = i;
     } // for
 
-    assertSorts(sorted, original, intSorter);  
+    assertSorts(sorted, original, intSorter);
   } // sortAllInts
 
   /**
