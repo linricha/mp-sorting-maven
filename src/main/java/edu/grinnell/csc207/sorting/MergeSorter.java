@@ -67,7 +67,7 @@ public class MergeSorter<T> implements Sorter<T> {
       int remainingGroupWidth = values.length - totalGroups * i;
       
       // Sorts pairs of groups that can be made
-      for (int groupNum = 0; groupNum < totalGroups; groupNum += 2) {
+      for (int groupNum = 0; groupNum < totalGroups - 1; groupNum += 2) {
         int groupIndex1 = groupNum * groupWidth;
         int groupIndex2 = groupIndex1 + groupWidth;
         compare(prevSorted, values, groupIndex1, groupWidth, groupIndex2, groupWidth);
@@ -132,17 +132,23 @@ public class MergeSorter<T> implements Sorter<T> {
     int v1 = 0;
     int v2 = 0;
 
-    while (v1 + v2 < v1Length + v2Length - 1) {
+    while (v1 + v2 < v1Length + v2Length) {
       // v1 <= v2 (stability) 
-      if (v1 != v1Length && v2 != v2Length) {
-        if ((this.order.compare(values[v1 + v1StartIndex], values[v2 + v2StartIndex]) <= 0) || v2 == v2Length) {
-          sorted[v1 + v2 + v1StartIndex] = values[v1];
+      if (v1 < v1Length && v2 < v2Length) {
+        if ((this.order.compare(values[v1 + v1StartIndex], values[v2 + v2StartIndex]) <= 0)) {
+          sorted[v1 + v2 + v1StartIndex] = values[v1 + v1StartIndex];
           v1++;
-        } else if ((this.order.compare(values[v1 + v1StartIndex], values[v2 + v2StartIndex]) > 0) || v1 == v1Length) {
-          sorted[v1 + v2 + v1StartIndex] = values[v2];
+        } else if ((this.order.compare(values[v1 + v1StartIndex], values[v2 + v2StartIndex]) > 0)) {
+          sorted[v1 + v2 + v1StartIndex] = values[v2 + v2StartIndex];
           v2++;
         } // if/else-if
-      }
-    }
-  }
+      } else if (v2 == v2Length) {
+        sorted[v1 + v2 + v1StartIndex] = values[v1 + v1StartIndex];
+        v1++;
+      } else if (v1 == v1Length) {
+        sorted[v1 + v2 + v1StartIndex] = values[v2 + v2StartIndex];
+        v2++;
+      } // if/else-if/else-if
+    } // while
+  } // compare(T[], T[], int, int, int, int)
 } // class MergeSorter
