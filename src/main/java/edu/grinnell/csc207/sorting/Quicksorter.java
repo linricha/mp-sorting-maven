@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Something that sorts using Quicksort.
@@ -55,6 +56,80 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    Random rand = new Random();
+
+    sortHelper(values, 0, values.length, rand);
+
   } // sort(T[])
+
+  /**
+   * Recursively sorts T[] values through quicksort.
+   *
+   * @param values The array of values to sort.
+   * @param lb The lower bound of the area to sort (inclusive).
+   * @param ub The upper bound of the area to sort (exclusive).
+   * @param rand Give a random int.
+   */
+  public void sortHelper(T[] values, int lb, int ub, Random rand) {
+
+    int[] bounds = dutchNationalFlag(values, lb, ub, rand.nextInt(lb, ub));
+
+    if (bounds[0] == -1 || bounds[1] == -1) {
+      return;
+    } // if
+    sortHelper(values, lb, bounds[0], rand );
+    sortHelper(values, bounds[1], ub, rand );
+  } // sortHelper(T[], int, int, Random)
+
+  /**
+   * Sorts values into three different sections, elements less than the
+   * element at the pivot index, equal to the pivot element, and greater
+   * than the pivot element.
+   * 
+   * @param values The array of values to sort.
+   * @param lb The lower bound of the area to sort (inclusive).
+   * @param ub The upper bound of the area to sort (exclusive).
+   * @param pivotIndex The index of the pivot.
+   * @return An integer array containing the index separating how
+   * the area was sorted (less than | equal | greater than).
+   */
+  public int[] dutchNationalFlag(T[] values, int lb, int ub, int pivotIndex) {
+    T pivot = values[pivotIndex];
+    
+    if (pivotIndex <= lb || pivotIndex >= ub - 1) { // exlcusive assumption
+      return new int[] {-1, -1};
+    } // if
+
+    int lowerBound = 0;
+    int middleBound = 0;
+    int upperBound = 0;
+
+
+    for (int i = 0; i < ub - lb; i++) {
+      int comparison = this.order.compare(values[upperBound], pivot);
+
+      if (comparison < 0) {
+        swap(values, upperBound, middleBound);
+        swap(values, middleBound, lowerBound);
+        lowerBound++;
+        middleBound++;
+        upperBound++;
+      } else if (comparison == 0) {
+        swap(values, upperBound, middleBound);
+        middleBound++;
+        upperBound++;
+      } else { // comparision > 0
+        upperBound++;
+      } // if/else-if/else
+    } // for
+
+    return new int[] {lowerBound, middleBound};
+    
+  } // dutchNationalFlag(T[], int, int, Random)
+
+  public void swap(T[] values, int index1, int index2) {
+    T placeholderVal = values[index2];
+    values[index2] = values[index1];
+    values[index1] = placeholderVal;
+  }
 } // class Quicksorter
