@@ -64,7 +64,7 @@ public class SelectionSorter<T> implements Sorter<T> {
       int nextSmallestIndex = j;
 
       // Find the smallest value in T[]
-      for (int i = 0; i < values.length; i ++) {
+      for (int i = j; i < values.length; i ++) {
         if (this.order.compare(values[i], nextSmallestVal) < 0) {
           nextSmallestVal = values[i];
           nextSmallestIndex = i;
