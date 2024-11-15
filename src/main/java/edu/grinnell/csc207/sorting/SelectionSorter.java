@@ -58,7 +58,7 @@ public class SelectionSorter<T> implements Sorter<T> {
   public void sort(T[] values) {
 
     // Marks the area of sorted vs unsorted with j
-    for (int j = 0; j < values.length; j ++) {
+    for (int j = 0; j < values.length; j++) {
       int nextSmallestIndex = j;
 
       select(values, nextSmallestIndex);
@@ -78,7 +78,7 @@ public class SelectionSorter<T> implements Sorter<T> {
     int currentSmallestIndex = lb;
 
     // Find the smallest value in values
-    for (int i = lb; i < values.length; i ++) {
+    for (int i = lb; i < values.length; i++) {
       if (this.order.compare(values[i], currentSmallestVal) < 0) {
         currentSmallestVal = values[i];
         currentSmallestIndex = i;

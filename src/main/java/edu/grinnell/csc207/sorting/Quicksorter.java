@@ -72,7 +72,7 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   public void sortHelper(T[] values, int lb, int ub, Random rand) {
     int pivot;
-    if (ub <= lb){
+    if (ub <= lb) {
       return;
     } else {
       pivot = rand.nextInt(lb, ub);
@@ -83,15 +83,15 @@ public class Quicksorter<T> implements Sorter<T> {
     if (bounds[0] == -1 || bounds[1] == -1) {
       return;
     } // if
-    sortHelper(values, lb, bounds[0], rand );
-    sortHelper(values, bounds[1], ub, rand );
+    sortHelper(values, lb, bounds[0], rand);
+    sortHelper(values, bounds[1], ub, rand);
   } // sortHelper(T[], int, int, Random)
 
   /**
    * Sorts values into three different sections, elements less than the
    * element at the pivot index, equal to the pivot element, and greater
    * than the pivot element.
-   * 
+   *
    * @param values The array of values to sort.
    * @param lb The lower bound of the area to sort (inclusive).
    * @param ub The upper bound of the area to sort (exclusive).
@@ -101,7 +101,7 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   public int[] partition(T[] values, int lb, int ub, int pivotIndex) {
     T pivot = values[pivotIndex];
-    
+
     if (ub - lb <= 1) {
       return new int[] {-1, -1};
     } // if
@@ -130,12 +130,19 @@ public class Quicksorter<T> implements Sorter<T> {
     } // for
 
     return new int[] {lowerBound + lb, middleBound + lb};
-    
   } // dutchNationalFlag(T[], int, int, Random)
 
+  /**
+   * Swaps the two elements located at index1 and index2
+   * in values.
+   *
+   * @param values An array where swapping takes place.
+   * @param index1 Index of first element to swap.
+   * @param index2 Index of second element to swap.
+   */
   public void swap(T[] values, int index1, int index2) {
     T placeholderVal = values[index2];
     values[index2] = values[index1];
     values[index1] = placeholderVal;
-  }
+  } // swap(T[], int, int)
 } // class Quicksorter
