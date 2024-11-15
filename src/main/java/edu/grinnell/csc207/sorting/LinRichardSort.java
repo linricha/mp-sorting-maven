@@ -8,6 +8,10 @@ import java.util.Comparator;
  * This class uses a hybrid sorting algorithm that combines Merge Sort and Insertion Sort for
  * efficient sorting of any object type.
  *
+ * Created using ChatGPT. I used DeepAI before and it did not work. It kept giving me code that was
+ * wrong even though I kept prompting it to fix it. I was done with it so I move to chat gpt
+ * with the same prompts and it told me that what I was doing was impossible and gave me this code.
+ *
  * @param <T> the type of elements to be sorted by this class
  */
 public class LinRichardSort<T> implements Sorter<T> {
