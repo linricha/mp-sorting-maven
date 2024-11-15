@@ -214,7 +214,7 @@ public class TestSorter {
 
     String[] original = {"", "Hello", "Friend", "", "", "No"};
 
-    String[] sorted = {"", "", "", "No", "Hello", "Friend"};
+    String[] sorted = {"", "", "", "Friend", "Hello", "No"};
 
     assertSorts(sorted, original, stringSorter);
   } // sortNullString
