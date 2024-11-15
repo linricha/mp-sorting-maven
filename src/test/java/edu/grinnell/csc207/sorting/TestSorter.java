@@ -232,7 +232,7 @@ public class TestSorter {
       return;
     } // if
 
-    for (int i = 1; i < 100; i++) {
+    for (int i = 0; i < 100; i++) {
       Integer[] original = new Integer [i];
       
       for (int k = 0; k < original.length; k++) {
