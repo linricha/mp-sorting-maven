@@ -71,8 +71,14 @@ public class Quicksorter<T> implements Sorter<T> {
    * @param rand Give a random int.
    */
   public void sortHelper(T[] values, int lb, int ub, Random rand) {
+    int pivot;
+    if (ub <= lb){
+      return;
+    } else {
+      pivot = rand.nextInt(lb, ub);
+    } // if/else
 
-    int[] bounds = dutchNationalFlag(values, lb, ub, rand.nextInt(lb, ub));
+    int[] bounds = dutchNationalFlag(values, lb, ub, pivot);
 
     if (bounds[0] == -1 || bounds[1] == -1) {
       return;
@@ -96,7 +102,7 @@ public class Quicksorter<T> implements Sorter<T> {
   public int[] dutchNationalFlag(T[] values, int lb, int ub, int pivotIndex) {
     T pivot = values[pivotIndex];
     
-    if (pivotIndex <= lb || pivotIndex >= ub - 1) { // exlcusive assumption
+    if (ub - lb <= 1) {
       return new int[] {-1, -1};
     } // if
 
@@ -106,16 +112,16 @@ public class Quicksorter<T> implements Sorter<T> {
 
 
     for (int i = 0; i < ub - lb; i++) {
-      int comparison = this.order.compare(values[upperBound], pivot);
+      int comparison = this.order.compare(values[upperBound + lb], pivot);
 
       if (comparison < 0) {
-        swap(values, upperBound, middleBound);
-        swap(values, middleBound, lowerBound);
+        swap(values, upperBound + lb, middleBound + lb);
+        swap(values, middleBound + lb, lowerBound + lb);
         lowerBound++;
         middleBound++;
         upperBound++;
       } else if (comparison == 0) {
-        swap(values, upperBound, middleBound);
+        swap(values, upperBound + lb, middleBound + lb);
         middleBound++;
         upperBound++;
       } else { // comparision > 0
@@ -123,7 +129,7 @@ public class Quicksorter<T> implements Sorter<T> {
       } // if/else-if/else
     } // for
 
-    return new int[] {lowerBound, middleBound};
+    return new int[] {lowerBound + lb, middleBound + lb};
     
   } // dutchNationalFlag(T[], int, int, Random)
 
