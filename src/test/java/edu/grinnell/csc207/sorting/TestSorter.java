@@ -137,8 +137,9 @@ public class TestSorter {
 
     for (int i = 0; i < 100; i++) {
       sorted[i] = i - 100;
-      original[i] = i;
+      original[i] = i - 100;
     } // for
+    ArrayUtils.permute(original);
 
     assertSorts(sorted, original, intSorter);
   } // sortNegativeInts
@@ -156,9 +157,10 @@ public class TestSorter {
     Integer[] sorted = new Integer[100];
 
     for (int i = 0; i < 100; i++) {
-      sorted[i] = i - 50;
-      original[i] = i;
+      sorted[i] = i - 50; 
+      original[i] = i - 50;
     } // for
+    ArrayUtils.permute(original);
 
     assertSorts(sorted, original, intSorter);
   } // sortAllInts
