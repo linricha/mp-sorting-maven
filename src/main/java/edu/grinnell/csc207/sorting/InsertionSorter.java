@@ -58,18 +58,32 @@ public class InsertionSorter<T> implements Sorter<T> {
     
     // Marks the area of sorted vs unsorted with j
     for (int j = 0; j < values.length; j++) {
-      T nextVal = values[j];
+      int nextValtoSortIndex = j;
 
-      // Moves next val to the appropriate location in the sorted area
-      for (int i = j - 1; i >= 0; i--) {
-        // if nextVal is smaller than values[i]
-        if (this.order.compare(nextVal, values[i]) < 0) {
-          // swap elements
-          values[i + 1] = values[i];
-          values[i] = nextVal;
-        } // if
-      } // for
+      insert(values, nextValtoSortIndex);
 
     } // for
   } // sort(T[])
+
+  /**
+   * Inserts the element located at insertedValIndex in values
+   * into its correctly sorted place in the sorted area, the area/indices
+   * to the right/less than insertedValIndex.
+   *
+   * @param values The values to be sorted.
+   * @param insertedValIndex The index of the value to be inserted.
+   */
+  private void insert(T[] values, int insertedValIndex) {
+    T insertedVal = values[insertedValIndex];
+
+    // Moves insertedValIndex to the appropriate location in the sorted area
+    for (int i = insertedValIndex - 1; i >= 0; i--) {
+      // if nextVal is smaller than values[i]
+      if (this.order.compare(insertedVal, values[i]) < 0) {
+        // swap elements
+        values[i + 1] = values[i];
+        values[i] = insertedVal;
+      } // if
+    } // for
+  }
 } // class InsertionSorter

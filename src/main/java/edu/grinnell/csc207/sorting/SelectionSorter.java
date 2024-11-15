@@ -59,27 +59,41 @@ public class SelectionSorter<T> implements Sorter<T> {
 
     // Marks the area of sorted vs unsorted with j
     for (int j = 0; j < values.length; j ++) {
-
-      T nextSmallestVal = values[j];
       int nextSmallestIndex = j;
 
-      // Find the smallest value in T[]
-      for (int i = j; i < values.length; i ++) {
-        if (this.order.compare(values[i], nextSmallestVal) < 0) {
-          nextSmallestVal = values[i];
-          nextSmallestIndex = i;
-        } // if
-      } // for
-
-      // stablitily
-      for (int k = nextSmallestIndex; k > j; k--) {
-        // every value between sorted area (exclusive)
-        // and smallest val (inclusvie) shift right one.
-        values[k] = values[k - 1];
-      } // for
-
-      // Put smallest Val in last position of Sorted area
-      values[j] = nextSmallestVal;
+      select(values, nextSmallestIndex);
     } // for
   } // sort(T[])
+
+  /**
+   * Selects the smallest element in values from the
+   * lower bound lb to the end of values and places that
+   * element to the front of the unsorted area, lb.
+   *
+   * @param values The array of T elements to sort.
+   * @param lb The lowerbound of the area that needs sorting.
+   */
+  private void select(T[] values, int lb) {
+    T currentSmallestVal = values[lb];
+    int currentSmallestIndex = lb;
+
+    // Find the smallest value in values
+    for (int i = lb; i < values.length; i ++) {
+      if (this.order.compare(values[i], currentSmallestVal) < 0) {
+        currentSmallestVal = values[i];
+        currentSmallestIndex = i;
+      } // if
+    } // for
+
+    // Provides stablitily
+    for (int k = currentSmallestIndex; k > lb; k--) {
+      // every value between sorted area (exclusive)
+      // and smallest val (inclusvie) shift right one.
+      values[k] = values[k - 1];
+    } // for
+
+    // Put smallest Val in last position of Sorted area
+    values[lb] = currentSmallestVal;
+  } // select()
+
 } // class SelectionSorter

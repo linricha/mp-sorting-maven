@@ -70,7 +70,7 @@ public class MergeSorter<T> implements Sorter<T> {
       for (int groupNum = 0; groupNum < totalGroups - 1; groupNum += 2) {
         int groupIndex1 = groupNum * groupWidth;
         int groupIndex2 = groupIndex1 + groupWidth;
-        compare(prevSorted, values, groupIndex1, groupWidth, groupIndex2, groupWidth);
+        merge(prevSorted, values, groupIndex1, groupWidth, groupIndex2, groupWidth);
       } // for
 
       // When have enough for two groups of not complete size.
@@ -78,7 +78,7 @@ public class MergeSorter<T> implements Sorter<T> {
       if (totalGroups % 2 != 0 && remainingGroupWidth != 0) {
         int lastGroupIndex = (totalGroups - 1) * groupWidth;
         int remainingGroupIndex = totalGroups * groupWidth;
-        compare(prevSorted, values, lastGroupIndex, groupWidth, remainingGroupIndex, remainingGroupWidth);
+        merge(prevSorted, values, lastGroupIndex, groupWidth, remainingGroupIndex, remainingGroupWidth);
         checkedRemaining = true;
       } // if
       
@@ -95,26 +95,6 @@ public class MergeSorter<T> implements Sorter<T> {
     
   } // sort(T[])
 
-  // public void compare(T[] v1, T[] v2) {
-  //   T[] sorted = new T[v1.length + v2.length];
-
-  //   int V1 = 0;
-  //   int V2 = 0;
-
-  //   while (V1 + V2 < v1.length + v2.length - 1) {
-  //     // v1 <= v2 (stability) 
-  //     if (V1 != v1.length && V2 != v2.length) {
-  //       if ((this.order.compare(v1[V1], v2[V2]) <= 0) || V2 == v2.length) {
-  //         sorted[V1 + V2] = v1[V1];
-  //         V1++;
-  //       } else if ((this.order.compare(v1[V1], v2[V2]) > 0) || V1 == v1.length) {
-  //         sorted[V1 + V2] = v2[V2];
-  //         V2++;
-  //       } // if/else-if
-  //     }
-  //   }
-  // }
-
   /**
    * Give two areas in an area of values to be sorted, where each area is already
    * sorted and where the start index of v1 is before v2, sort the values in both
@@ -127,7 +107,7 @@ public class MergeSorter<T> implements Sorter<T> {
    * @param v2StartIndex the start index of the second area to sort in values.
    * @param v2Length the length of the second area to sort in values.
    */
-  public void compare(T[] values, T[] sorted, int v1StartIndex, int v1Length, int v2StartIndex, int v2Length) {
+  public void merge(T[] values, T[] sorted, int v1StartIndex, int v1Length, int v2StartIndex, int v2Length) {
 
     int v1 = 0;
     int v2 = 0;

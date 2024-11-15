@@ -78,7 +78,7 @@ public class Quicksorter<T> implements Sorter<T> {
       pivot = rand.nextInt(lb, ub);
     } // if/else
 
-    int[] bounds = dutchNationalFlag(values, lb, ub, pivot);
+    int[] bounds = partition(values, lb, ub, pivot);
 
     if (bounds[0] == -1 || bounds[1] == -1) {
       return;
@@ -99,7 +99,7 @@ public class Quicksorter<T> implements Sorter<T> {
    * @return An integer array containing the index separating how
    * the area was sorted (less than | equal | greater than).
    */
-  public int[] dutchNationalFlag(T[] values, int lb, int ub, int pivotIndex) {
+  public int[] partition(T[] values, int lb, int ub, int pivotIndex) {
     T pivot = values[pivotIndex];
     
     if (ub - lb <= 1) {
