@@ -145,7 +145,8 @@ public class TestSorter {
   } // sortNegativeInts
 
   /**
-   * Checks to see that all Integers can be sorted.
+   * Checks to see that all Integers can be sorted
+   * by sorting negatives, 0, and positives.
    */
   @Test
   public void sortAllInts() {
@@ -166,10 +167,10 @@ public class TestSorter {
   } // sortAllInts
 
   /**
-   * Tests that arrays of size one are sorted.
+   * Tests that arrays of size one are sorted for ints.
    */
   @Test
-  public void sortSizeOne() {
+  public void sortSizeOneInt() {
 
     if (null == intSorter) {
       return;
@@ -220,6 +221,30 @@ public class TestSorter {
 
     assertSorts(sorted, original, stringSorter);
   } // sortNullString
+
+  /**
+   * Checks that array of ints of multiple varying sizes can be sorted.
+   */
+  @Test
+  public void checkIntsArraySize() {
+
+    if (null == intSorter) {
+      return;
+    } // if
+
+    for (int i = 1; i < 100; i++) {
+      Integer[] original = new Integer [i];
+      
+      for (int k = 0; k < original.length; k++) {
+        original[k] = k;
+      } // for
+
+      Integer[] sorted = original.clone();
+      ArrayUtils.permute(original);
+
+      assertSorts(sorted, original, intSorter);
+    } // for
+  } // checkIntsArraySize
 
 
 
