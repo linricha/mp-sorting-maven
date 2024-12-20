@@ -56,9 +56,17 @@ public class InsertionSorter<T> implements Sorter<T> {
   @Override
   public void sort(T[] values) {
     // Marks the area of sorted vs unsorted with j
+    // Invariant:
+    // +---------------+-----------------+
+    // |    Sorted     |     Unsorted    |
+    // + --------------+-----------------+
+    //                 |
+    //                 j
     for (int j = 0; j < values.length; j++) {
       int nextValtoSortIndex = j;
 
+      // inserts the next element outside sorted area into sorted area
+      // and moves it to its appropriate location
       insert(values, nextValtoSortIndex);
 
     } // for
