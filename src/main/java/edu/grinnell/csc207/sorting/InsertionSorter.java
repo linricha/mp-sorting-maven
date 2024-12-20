@@ -65,8 +65,6 @@ public class InsertionSorter<T> implements Sorter<T> {
     for (int j = 0; j < values.length; j++) {
       int nextValtoSortIndex = j;
 
-      // state:
-      // sorts next element outside sorted area in sorted area
       insert(values, nextValtoSortIndex);
 
       // state:
