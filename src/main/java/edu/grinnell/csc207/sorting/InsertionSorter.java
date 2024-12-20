@@ -84,6 +84,8 @@ public class InsertionSorter<T> implements Sorter<T> {
     T insertedVal = values[insertedValIndex];
 
     // Moves insertedValIndex to the appropriate location in the sorted area
+    // such that values[k] >= values[k - 1] for all k such that 0 < k <= insertedValIndex 
+    // and values[p] < values[p + 1] for all p such that 0 <= p < insertedValIndex. 
     for (int i = insertedValIndex - 1; i >= 0; i--) {
       // if nextVal is smaller than values[i]
       if (this.order.compare(insertedVal, values[i]) < 0) {
