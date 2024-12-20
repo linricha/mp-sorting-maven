@@ -60,8 +60,8 @@ public class InsertionSorter<T> implements Sorter<T> {
     // +---------------+-----------------+
     // |    Sorted     |     Unsorted    |
     // + --------------+-----------------+
-    //                 |
-    //                 j
+    // |               |
+    // 0               j
     for (int j = 0; j < values.length; j++) {
       int nextValtoSortIndex = j;
 
